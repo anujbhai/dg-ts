@@ -44,10 +44,15 @@ log_msg(total(1, 2));
 const create_err = (err_msg) => {
     throw new Error(err_msg);
 };
+const is_number = (val) => {
+    return typeof val === "number"
+        ? true
+        : false;
+};
 const num_or_str = (val) => {
     if (typeof val === "string")
         return "string";
-    if (typeof val === "number")
+    if (is_number(val))
         return "number";
     return create_err("This should never happen");
 };

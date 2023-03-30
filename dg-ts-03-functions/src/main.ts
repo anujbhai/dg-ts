@@ -80,7 +80,7 @@ const create_err = (err_msg: string) => {
 };
 
 const is_number = (val: any): boolean => {
-  return typeof value === "number"
+  return typeof val === "number"
     ? true
     : false;
 };

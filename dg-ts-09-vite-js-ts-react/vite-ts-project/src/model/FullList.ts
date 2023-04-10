@@ -29,6 +29,7 @@ export default class FullList implements List {
         const new_item_list = new ListItem(itemObj._id, itemObj._item, itemObj._checked);
 
         FullList.instance.addItem(new_item_list);
+
       });
   }
 

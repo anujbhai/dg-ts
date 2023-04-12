@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { Children, ReactNode } from 'react'
 
-const Counter = () => {
-  const [count, setCount] = useState(0)
+type CounterProps = {
+  setCount: React.Dispatch<React.SetStateAction<number>>,
+  children: ReactNode,
+}
 
+const Counter = ({setCount, children}: CounterProps) => {
   return (
     <>
-      <h1>Count is {count}</h1>
+      <h1>{children}</h1>
 
       <button
         onClick={() => setCount(prev => prev + 1)}

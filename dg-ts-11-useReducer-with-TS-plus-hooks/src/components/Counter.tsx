@@ -1,18 +1,25 @@
-import React, { ReactNode, useState } from 'react'
+import React, {
+    ChangeEvent,
+  ReactNode,
+  useReducer,
+  useState
+} from 'react'
 
 type ChildrenType = {
   children: (num: number) => ReactNode
 }
 
-const initialState = { count: 0 }
+const initialState = { count: 0, text: '' }
 
 const enum REDUCER_ACTION_TYPE {
   INCREMENT,
-  DECREMENT
+  DECREMENT,
+  NEW_INPUT,
 }
 
 type ReducerAction = {
-  type: REDUCER_ACTION_TYPE
+  type: REDUCER_ACTION_TYPE,
+  payload?: string,
 }
 
 const reducer = (state: typeof initialState, action: ReducerAction): typeof initialState => {
@@ -21,25 +28,41 @@ const reducer = (state: typeof initialState, action: ReducerAction): typeof init
       return { ...state, count: state.count + 1 }
     case REDUCER_ACTION_TYPE.DECREMENT:
       return { ...state, count: state.count - 1 }
+    case REDUCER_ACTION_TYPE.NEW_INPUT:
+      return { ...state, text: action.payload ?? '' } // null coalesing
     default:
       throw new Error()
   }
 };
 
 const Counter = ({ children }: ChildrenType) => {
-  const [count, setCount] = useState<number>(1)
+  // const [count, setCount] = useState<number>(1)
+  const [state, dispatch] = useReducer(reducer, initialState)
 
-  const handleInc = () => setCount(prev => prev + 1)
-  const handleDec = () => setCount(prev => prev - 1)
+  const handleInc = () => dispatch({ type: REDUCER_ACTION_TYPE.INCREMENT })
+  const handleDec = () => dispatch({ type: REDUCER_ACTION_TYPE.DECREMENT })
+  const handleTextInput = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: REDUCER_ACTION_TYPE.NEW_INPUT,
+      payload: e.target.value,
+    })
+  }
 
   return (
     <>
-      <h1>{ children(count) }</h1>
+      <h1>{ children(state.count) }</h1>
 
       <div>
         <button onClick={handleInc}>+</button>
         <button onClick={handleDec}>-</button>
       </div>
+
+      <input
+        type="text"
+        onChange={handleTextInput}
+      />
+
+      <h2>{state.text}</h2>
     </>
   )
 }

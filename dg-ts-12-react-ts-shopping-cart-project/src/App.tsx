@@ -1,9 +1,9 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-import Cart from "./components/Cart"
-import Footer from "./components/Footer"
-import Header from "./components/Header"
-import ProductList from "./components/ProductList"
+import Cart from './components/Cart'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import ProductList from './components/ProductList'
 
 function App() {
   const [viewCart, setViewCart] = useState<boolean>(false)
@@ -13,14 +13,14 @@ function App() {
   const content = (
     <>
       <Header
-        viewCart={ viewCart }
-        setViewCart={ setViewCart }
+        viewCart={viewCart}
+        setViewCart={setViewCart}
       />
 
-      { pageContent }
+      {pageContent}
 
       <Footer
-        viewCart={ viewCart }
+        viewCart={viewCart}
       />
     </>
   )

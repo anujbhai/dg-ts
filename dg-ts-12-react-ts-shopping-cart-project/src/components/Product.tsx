@@ -11,7 +11,12 @@ type PropsType = {
 
 }
 
-const Product = ({ product, dispatch, REDUCER_ACTIONS, inCart }: PropsType): ReactElement => {
+const Product = ({ product, dispatch, REDUCER_ACTIONS }: PropsType): ReactElement => {
+  const img: string = new URL(`../images/${product.sku}.jpg`, import.meta.url).href
+
+  console.log(img)
+
+
   return (
     <div>Product</div>
   )

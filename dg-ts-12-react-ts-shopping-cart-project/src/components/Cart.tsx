@@ -4,10 +4,10 @@ import CartLineItem from "./CartLineItem"
 
 const Cart = () => {
   const [confirm, setConfirm] = useState<boolean>(false)
-  const { dispatch, REDUCER_ACTIONS, totalItems, totalPrice, cart } = useCart()
+  const { dispatch, REDUCER_ACTION, total_items, total_price, cart } = useCart()
 
   const onSubmitOrder = () => {
-    dispatch({ type: REDUCER_ACTIONS.SUBMIT })
+    dispatch({ type: REDUCER_ACTION.SUBMIT })
     setConfirm(true)
   }
 
@@ -25,27 +25,33 @@ const Cart = () => {
               key={ item.sku }
               item={ item }
               dispatch={ dispatch }
-              REDUCER_ACTIONS={ REDUCER_ACTIONS }
+              REDUCER_ACTION={ REDUCER_ACTION }
             />
           )
         }) }
       </ul>
       
       <div className="cart__totals">
-        <p>Total Items: { totalItems }</p>
-        <p>Total Price: { totalPrice }</p>
+        <p>Total Items: { total_items }</p>
+        <p>Total Price: { total_price }</p>
 
-        <button className="cart__submit" disabled={ !totalItems } onClick={ onSubmitOrder }>
-          
+        <button
+          className="cart__submit"
+          disabled={ !total_items }
+          onClick={ onSubmitOrder }
+        >
+          Place Order
         </button>
       </div>
     </>
 
-  return (
-    <div>
-      Cart
-    </div>
+  const content = (
+    <main className="main main--cart">
+      { pageContent }
+    </main>
   )
+
+  return content
 }
 
 export default Cart
